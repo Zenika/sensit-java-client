@@ -50,7 +50,16 @@ public class Sensit {
      * @param sensorId ID of the sensor
      */
     public SensitResponse<Sensor> getSensor(String deviceId, String sensorId) {
-        return rest.get("/devices/"+deviceId+"/sensors/"+sensorId, new GenericType<SensitResponse<Sensor>>() {});
+        return getSensor(deviceId, sensorId, 1);
+    }
+    
+
+    public SensitResponse<Sensor> getSensor(String deviceId, String sensorId, Integer page) {
+        
+        String resourceUrl = "/devices/"+deviceId+"/sensors/"+sensorId;
+        String pagedUrl = (page != 1) ? resourceUrl+"?page=" + page : resourceUrl;
+                
+        return rest.get(pagedUrl, new GenericType<SensitResponse<Sensor>>() {});
     }
 
 }
